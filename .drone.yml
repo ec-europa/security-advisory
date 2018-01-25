@@ -1,0 +1,11 @@
+pipeline:
+
+  # Step name "prepare"
+  prepare:
+    # Use php${FPFIS_PHP_VERSION} image
+    image: fpfis/php56-dev
+    # Run the following commands
+    commands:
+      - cat /proc/{cpu,mem}info|sort|uniq -c|egrep -i "name|memtotal"
+      - php --version
+      - drush --version
