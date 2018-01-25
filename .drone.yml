@@ -1,5 +1,16 @@
-pipeline:
+workspace:
+  base: /test
+  path: security-advisory 
 
+services:
+  web:
+    image: fpfis/php56-dev
+    environment:
+     - DOCUMENT_ROOT=/test/security-advisory/web
+  mysql:
+    image: fpfis/mysql56
+
+pipeline:
   # Step name "prepare"
   prepare:
     # Use php${FPFIS_PHP_VERSION} image
@@ -9,3 +20,4 @@ pipeline:
       - cat /proc/{cpu,mem}info|sort|uniq -c|egrep -i "name|memtotal"
       - php --version
       - drush --version
+      - wget http://web:8080/ -O -
